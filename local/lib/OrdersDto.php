@@ -6,6 +6,8 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Sale\Order;
+use Bitrix\Main\Entity\Query;
+use \Bitrix\Sale\Internals\OrderTable;
 
 class OrdersDto
 {
@@ -22,12 +24,11 @@ class OrdersDto
         Loader::includeModule('sale');
 
         $latestOrderId = OrdersDto::getLatestOrder();
-        $ordersId = Order::getList([
-            'select' => [
-                "ID"
-            ],
-            'filter' => array('<ID', $latestOrderId)
-        ]);
+
+        $query = new Query(OrderTable::getEntity());
+        $query->setSelect(array("ID"));
+        $query->setFilter(array('<ID'), $latestOrderId);
+        $ordersId = $query->exec();
 
         $ordersResultDto = [];
 
