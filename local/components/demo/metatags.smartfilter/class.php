@@ -80,6 +80,12 @@ class MetaSmartFilter extends CBitrixComponent
             $filterResult = str_replace('{section.name}', '', $filterResult);
         }
 
+        if(!empty($this->arResult["UF_TITLE"])) {
+            $filterResult = str_replace('{h1}', $this->arResult["UF_TITLE"], $filterResult);
+        } else {
+            $filterResult = str_replace('{h1}', '', $filterResult);
+        }
+
         return $filterResult;
     }
 

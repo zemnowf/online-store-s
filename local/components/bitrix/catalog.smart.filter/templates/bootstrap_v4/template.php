@@ -18,29 +18,6 @@ $templateData = array(
 if (isset($templateData['TEMPLATE_THEME'])) {
     $this->addExternalCss($templateData['TEMPLATE_THEME']);
 }
-
-$rsSections = CIBlockSection::GetList(
-    array(),
-    array
-    (
-        'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-        'SECTION_ID' => $arParams['SECTION_ID'],
-    )
-);
-
-$arSection = $rsSections->Fetch();
-
-echo $APPLICATION->GetTitle(false);
-
-$APPLICATION->IncludeComponent(
-    "demo:metatags.smartfilter",
-    ".default",
-    array(
-        'ITEMS' => $arResult["ITEMS"],
-        'UF_SECTION_NAME' => $arSection['NAME'],
-    )
-);
-
 ?>
 <div class="smart-filter mb-4 <?= $templateData["TEMPLATE_CLASS"] ?> <? if ($arParams["FILTER_VIEW_MODE"] == "HORIZONTAL") echo "smart-filter-horizontal" ?>">
     <div class="smart-filter-section">

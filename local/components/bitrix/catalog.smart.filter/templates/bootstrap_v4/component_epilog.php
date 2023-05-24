@@ -3,4 +3,7 @@
 /** @var @global CMain $APPLICATION */
 
 CJSCore::Init(array('fx', 'popup'));
-?>
+
+use Lib\FilterStorage;
+
+FilterStorage::set("items", $arResult["ITEMS"]);
