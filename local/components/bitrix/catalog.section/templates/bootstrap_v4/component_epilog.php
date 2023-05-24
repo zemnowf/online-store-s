@@ -54,15 +54,7 @@ if ($request->isAjaxRequest() && ($request->get('action') === 'showMore' || $req
 	));
 }
 
-$rsSections = CIBlockSection::GetList(
-    array(),
-    array
-    (
-        'IBLOCK_ID' => $arParams['IBLOCK_ID'],
-        'SECTION_ID' => $arParams['SECTION_ID'],
-    )
-);
+FilterStorage::set("section", array(
+        "NAME" => $arResult['NAME'],
+));
 
-$arSection = $rsSections->Fetch();
-
-FilterStorage::set("section", $arSection['NAME']);
