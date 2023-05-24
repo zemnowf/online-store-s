@@ -80,8 +80,12 @@ $APPLICATION->IncludeComponent(
 	".default",
 	array(
 		'ITEMS' => \Lib\FilterStorage::get("items"),
-		'UF_SECTION_NAME' => \Lib\FilterStorage::get("section"),
-		'UF_TITLE' => $APPLICATION->GetTitle()
+		'CHECKED_ITEMS' => \Lib\FilterStorage::get("checked_items"),
+		'MAX_PRICE' => \Lib\FilterStorage::get("max_price"),
+		'MIN_PRICE' => \Lib\FilterStorage::get("min_price"),
+		'PRICE' => \Lib\FilterStorage::get("price"),
+		'SECTION_FIELDS' => \Lib\FilterStorage::get("section"),
+		'TITLE' => $APPLICATION->GetTitle()
 	)
 );
 ?>

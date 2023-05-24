@@ -5,5 +5,8 @@
  * @var CatalogSectionComponent $component
  */
 
+$this->__component->SetResultCacheKeys(array('NAME'));
+
 $component = $this->getComponent();
 $arParams = $component->applyTemplateModifications();
+

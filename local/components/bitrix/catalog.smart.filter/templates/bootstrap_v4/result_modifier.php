@@ -38,4 +38,50 @@ else
 $arParams["FILTER_VIEW_MODE"] = (isset($arParams["FILTER_VIEW_MODE"]) && toUpper($arParams["FILTER_VIEW_MODE"]) == "HORIZONTAL") ? "HORIZONTAL" : "VERTICAL";
 $arParams["POPUP_POSITION"] = (isset($arParams["POPUP_POSITION"]) && in_array($arParams["POPUP_POSITION"], array("left", "right"))) ? $arParams["POPUP_POSITION"] : "left";
 
-$this->__component->setResultCacheKeys(array("ITEMS"));
+
+foreach ($arResult["ITEMS"] as $item) {
+    $valueChecked = false;
+    foreach ($item["VALUES"] as $value) {
+        if ($value["CHECKED"]) {
+            $valueChecked = true;
+        }
+    }
+    if ($item["NAME"] == "Розничная цена") {
+
+        $arResult["PRICE"] = $item;
+
+        if ($item["VALUES"]["MIN"]["HTML_VALUE"]) {
+            $arResult["MIN_PRICE"] = $item["VALUES"]["MIN"]["HTML_VALUE"];
+        } else {
+            $arResult["MIN_PRICE"] = $item["VALUES"]["MIN"]["VALUE"];
+        }
+
+        if ($item["VALUES"]["MAX"]["HTML_VALUE"]) {
+            $arResult["MAX_PRICE"] = $item["VALUES"]["MAX"]["HTML_VALUE"];
+        } else {
+            $arResult["MAX_PRICE"] = $item["VALUES"]["MAX"]["VALUE"];
+        }
+
+    }
+    if ($valueChecked) {
+        $checkedValues = array();
+        foreach ($item["VALUES"] as $value) {
+            if ($value["CHECKED"]) {
+                $checkedValues[] = $value["VALUE"];
+            }
+        }
+        $newItem = array(
+            "NAME" => $item["NAME"],
+            "CHECKED_VALUES" => $checkedValues
+        );
+        $arResult["CUR_ITEMS"][] = $newItem;
+    }
+}
+
+echo "price<pre>";
+var_dump($arResult["CUR_ITEMS"]);
+echo "</pre>";
+$this->__component->setResultCacheKeys(array("ITEMS", "CUR_ITEMS", "MAX_PRICE", "MIN_PRICE", "PRICE"));
+
+
+
